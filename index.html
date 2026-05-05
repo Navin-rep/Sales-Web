@@ -3,142 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sk shop</title>
+<title>SK.shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f6f1;--surface:#ffffff;--dark:#0f0f0f;--accent:#e85d2f;
+  --muted:#6b6b6b;--border:#e5e2da;--success:#1a7a4a;--info:#1a5fa8;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+a{text-decoration:none;color:inherit}
 
-    header {
-        background: #111;
-        color: white;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* ── HEADER ── */
+header{background:var(--dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.5px;cursor:pointer}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:4px}
+nav button{background:none;border:none;color:rgba(255,255,255,0.6);padding:8px 14px;border-radius:6px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:0.2s}
+nav button:hover,nav button.active{background:rgba(255,255,255,0.1);color:#fff}
+.header-right{display:flex;align-items:center;gap:12px}
+.search-wrap{position:relative}
+.search-wrap input{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);color:#fff;padding:9px 14px 9px 36px;border-radius:6px;font-size:14px;font-family:'DM Sans',sans-serif;width:190px;outline:none;transition:0.2s}
+.search-wrap input::placeholder{color:rgba(255,255,255,0.4)}
+.search-wrap input:focus{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.45);font-size:14px;pointer-events:none}
+.icon-btn{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);color:#fff;width:38px;height:38px;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:0.2s;position:relative}
+.icon-btn:hover{background:rgba(255,255,255,0.2)}
+.badge-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;background:var(--accent);border-radius:50%}
 
-    nav a {
-        color: white;
-        margin-left: 20px;
-        text-decoration: none;
-    }
+/* ── PAGES ── */
+.page{display:none;animation:fadeIn 0.3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    .container {
-        padding: 30px;
-    }
+/* ── HOME PAGE ── */
+.hero{background:var(--dark);padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:480px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:500px;height:500px;border-radius:50%;background:rgba(232,93,47,0.08);pointer-events:none}
+.hero-tag{display:inline-block;background:rgba(232,93,47,0.15);color:var(--accent);border:0.5px solid rgba(232,93,47,0.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:20px}
+.hero h1{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-2px;margin-bottom:16px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:rgba(255,255,255,0.55);font-size:16px;line-height:1.7;max-width:420px;margin-bottom:32px}
+.hero-btns{display:flex;gap:12px}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:13px 28px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:0.2s}
+.btn-primary:hover{background:#d44d22}
+.btn-outline{background:transparent;color:#fff;border:0.5px solid rgba(255,255,255,0.3);padding:13px 28px;border-radius:8px;font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:0.2s}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.06)}
+.hero-img{border-radius:16px;overflow:hidden;height:360px}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:0.5px solid var(--border)}
+.stat{padding:24px;text-align:center;border-right:0.5px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--dark)}
+.stat-label{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:0.3px}
+.section{padding:56px 40px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+.section-head h2{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;letter-spacing:-0.5px}
+.section-head p{color:var(--muted);font-size:14px}
+.see-all{background:none;border:0.5px solid var(--border);padding:9px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.see-all:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat-card{border-radius:12px;overflow:hidden;position:relative;height:180px;cursor:pointer}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.cat-card:hover img{transform:scale(1.06)}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);display:flex;align-items:flex-end;padding:16px}
+.cat-name{font-family:'Syne',sans-serif;color:#fff;font-size:16px;font-weight:600}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.promo-strip{background:var(--dark);margin:0 40px 56px;border-radius:16px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.promo-strip h2{font-family:'Syne',sans-serif;color:#fff;font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:10px}
+.promo-strip p{color:rgba(255,255,255,0.55);margin-bottom:24px}
+.promo-img{border-radius:12px;overflow:hidden;height:220px}
+.promo-img img{width:100%;height:100%;object-fit:cover}
+.newsletter{background:var(--accent);padding:60px 40px;text-align:center}
+.newsletter h2{font-family:'Syne',sans-serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:10px}
+.newsletter p{color:rgba(255,255,255,0.75);margin-bottom:28px;font-size:15px}
+.nl-form{display:flex;gap:10px;justify-content:center;max-width:480px;margin:0 auto}
+.nl-form input{flex:1;padding:13px 18px;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none}
+.nl-form button{background:var(--dark);color:#fff;border:none;padding:13px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;white-space:nowrap}
 
-    .products {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-    }
+/* ── PRODUCTS PAGE ── */
+.products-layout{padding:32px 40px}
+.page-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px}
+.page-subtitle{color:var(--muted);margin-bottom:28px;font-size:14px}
+.toolbar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
+.filter-btn{border:0.5px solid var(--border);background:var(--surface);color:var(--muted);padding:8px 18px;border-radius:20px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.filter-btn.active,.filter-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.sort-select{border:0.5px solid var(--border);background:var(--surface);padding:8px 14px;border-radius:6px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;margin-left:auto;color:var(--dark)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.result-count{color:var(--muted);font-size:13px;margin-bottom:16px}
+.no-results{text-align:center;padding:60px;color:var(--muted);grid-column:1/-1}
 
-    .card {
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-        transition: 0.3s;
-    }
+/* ── PRODUCT CARD ── */
+.card{background:var(--surface);border-radius:12px;overflow:hidden;border:0.5px solid var(--border);transition:transform 0.25s,box-shadow 0.25s;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.09)}
+.card-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;z-index:2;letter-spacing:0.3px}
+.card-badge.sale{background:var(--accent);color:#fff}
+.card-badge.new{background:var(--dark);color:#fff}
+.wish-btn{position:absolute;top:12px;right:12px;background:white;border:0.5px solid var(--border);width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:0.2s;z-index:2}
+.wish-btn:hover,.wish-btn.loved{background:var(--accent);border-color:var(--accent);color:#fff}
+.card img{width:100%;height:210px;object-fit:cover;display:block}
+.card-body{padding:16px}
+.card-cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px}
+.card-name{font-family:'Syne',sans-serif;font-weight:600;font-size:16px;margin-bottom:4px;line-height:1.3}
+.stars{color:#f5a623;font-size:12px;margin-bottom:2px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px}
+.price{font-weight:600;font-size:18px}
+.old-price{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:4px}
+.add-btn{background:var(--dark);color:#fff;border:none;padding:9px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;transition:background 0.2s;white-space:nowrap}
+.add-btn:hover{background:var(--accent)}
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+/* ── WISHLIST PAGE ── */
+.wishlist-layout{padding:32px 40px}
+.wishlist-empty{text-align:center;padding:80px 20px;color:var(--muted)}
+.wishlist-empty .big-icon{font-size:64px;margin-bottom:16px}
 
-    .card img {
-        width: 100%;
-        height: 220px;
-        object-fit: cover;
-    }
+/* ── CART DRAWER ── */
+.cart-drawer{position:fixed;right:-420px;top:0;width:400px;height:100vh;background:#fff;z-index:300;transition:right 0.35s cubic-bezier(.34,1.2,.64,1);box-shadow:-4px 0 32px rgba(0,0,0,0.12);display:flex;flex-direction:column}
+.cart-drawer.open{right:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:299;display:none;backdrop-filter:blur(2px)}
+.overlay.open{display:block}
+.drawer-header{padding:20px 24px;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.drawer-header h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:700}
+.close-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1;padding:4px}
+.close-btn:hover{color:var(--dark)}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 24px}
+.cart-item{display:flex;gap:14px;padding:14px 0;border-bottom:0.5px solid var(--border)}
+.cart-item:last-child{border-bottom:none}
+.cart-item img{width:68px;height:68px;object-fit:cover;border-radius:8px;flex-shrink:0;border:0.5px solid var(--border)}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-weight:500;font-size:14px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-cat{font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:capitalize}
+.ci-price{color:var(--accent);font-weight:600;font-size:15px}
+.ci-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty-btn{background:var(--bg);border:0.5px solid var(--border);width:28px;height:28px;border-radius:4px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:0.15s}
+.qty-btn:hover{background:var(--dark);color:#fff}
+.qty-num{font-size:13px;font-weight:600;min-width:20px;text-align:center}
+.ci-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;transition:0.15s;align-self:flex-start}
+.ci-del:hover{color:#c00}
+.drawer-footer{padding:20px 24px;border-top:0.5px solid var(--border);background:#fafaf9}
+.totals{margin-bottom:16px}
+.tot-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:8px}
+.tot-row.total{font-size:17px;font-weight:600;color:var(--dark);margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border)}
+.checkout-btn{width:100%;background:var(--dark);color:#fff;border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background 0.2s}
+.checkout-btn:hover{background:var(--accent)}
+.empty-cart{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty-cart .big{font-size:52px;margin-bottom:12px}
 
-    .card-content {
-        padding: 15px;
-        text-align: center;
-    }
+/* ── ACCOUNT PAGE ── */
+.account-layout{padding:40px}
+.account-grid{display:grid;grid-template-columns:260px 1fr;gap:28px;max-width:1000px}
+.account-sidebar{background:#fff;border-radius:12px;border:0.5px solid var(--border);padding:24px;height:fit-content}
+.user-avatar{width:64px;height:64px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:22px;color:#fff;font-weight:700;margin:0 auto 12px}
+.user-name{text-align:center;font-family:'Syne',sans-serif;font-weight:600;font-size:17px;margin-bottom:4px}
+.user-email{text-align:center;color:var(--muted);font-size:13px;margin-bottom:20px}
+.acc-nav{list-style:none}
+.acc-nav li button{width:100%;text-align:left;background:none;border:none;padding:10px 14px;border-radius:6px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--muted);transition:0.15s;display:flex;align-items:center;gap:10px}
+.acc-nav li button:hover,.acc-nav li button.active{background:var(--bg);color:var(--dark);font-weight:500}
+.acc-panel{background:#fff;border-radius:12px;border:0.5px solid var(--border);padding:28px}
+.acc-panel h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:14px;border-bottom:0.5px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-group label{font-size:13px;color:var(--muted);font-weight:500}
+.form-group input,.form-group select,.form-group textarea{border:0.5px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:#fff;transition:0.2s;color:var(--dark)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--dark)}
+.save-btn{background:var(--dark);color:#fff;border:none;padding:11px 28px;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:0.2s}
+.save-btn:hover{background:var(--accent)}
+.order-item{border:0.5px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.order-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.order-id{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
+.order-status{font-size:12px;padding:4px 10px;border-radius:20px}
+.status-delivered{background:#d4edda;color:var(--success)}
+.status-shipped{background:#d0e8ff;color:var(--info)}
+.status-processing{background:#fff3cd;color:#856404}
+.order-items-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.order-thumb{width:48px;height:48px;object-fit:cover;border-radius:6px;border:0.5px solid var(--border)}
+.order-footer{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding-top:10px;border-top:0.5px solid var(--border)}
+.order-total{font-weight:600;color:var(--dark)}
+.addr-card{border:0.5px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;position:relative}
+.addr-card.default-addr{border-color:var(--accent)}
+.addr-default-badge{position:absolute;top:12px;right:12px;background:rgba(232,93,47,0.1);color:var(--accent);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.addr-name{font-weight:500;margin-bottom:4px}
+.addr-text{font-size:13px;color:var(--muted);line-height:1.6}
+.addr-actions{display:flex;gap:10px;margin-top:10px}
+.link-btn{background:none;border:none;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--accent);padding:0}
+.acc-sub-tabs{display:flex;gap:4px;margin-bottom:20px}
+.sub-tab{background:none;border:0.5px solid var(--border);padding:7px 18px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.sub-tab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
 
-    .price {
-        color: #27ae60;
-        font-weight: bold;
-    }
+/* ── CONTACT PAGE ── */
+.contact-layout{padding:56px 40px;max-width:1000px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+.contact-info h2{font-family:'Syne',sans-serif;font-size:36px;font-weight:700;margin-bottom:12px;letter-spacing:-0.5px}
+.contact-info p{color:var(--muted);line-height:1.7;margin-bottom:28px}
+.contact-detail{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;padding:16px;background:#fff;border-radius:10px;border:0.5px solid var(--border)}
+.detail-icon{width:40px;height:40px;background:rgba(232,93,47,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.detail-label{font-size:12px;color:var(--muted);margin-bottom:3px}
+.detail-val{font-weight:500;font-size:14px}
+.contact-form{background:#fff;border-radius:16px;border:0.5px solid var(--border);padding:32px}
+.contact-form h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:24px}
+.form-submit{width:100%;background:var(--accent);color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:0.2s;margin-top:4px}
+.form-submit:hover{background:#d44d22}
+.faq-section{padding:56px 40px 0;max-width:800px}
+.faq-section h2{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:24px}
+.faq-item{border:0.5px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:#fff;border:none;padding:16px 20px;font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500}
+.faq-q span{color:var(--muted);font-size:18px;transition:0.3s}
+.faq-a{display:none;padding:0 20px 16px;color:var(--muted);font-size:14px;line-height:1.7;background:#fff}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-q span{transform:rotate(45deg)}
 
-    button {
-        margin-top: 10px;
-        background: #111;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--dark);color:#fff;padding:14px 20px;border-radius:10px;font-size:14px;display:flex;align-items:center;gap:10px;z-index:999;transform:translateY(120px);opacity:0;transition:0.4s cubic-bezier(.34,1.56,.64,1);max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-icon{background:var(--success);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #111;
-        color: white;
-        margin-top: 30px;
-    }
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(255,255,255,0.6);padding:48px 40px 24px;margin-top:40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand .logo{color:#fff;font-size:20px;display:block;margin-bottom:12px}
+.footer-brand p{font-size:13px;line-height:1.7;max-width:220px}
+.footer-col h4{font-family:'Syne',sans-serif;color:#fff;font-size:14px;font-weight:600;margin-bottom:14px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col li button{background:none;border:none;color:rgba(255,255,255,0.55);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;transition:0.2s}
+.footer-col li button:hover{color:#fff}
+.footer-bottom{border-top:0.5px solid rgba(255,255,255,0.1);padding-top:20px;display:flex;justify-content:space-between;font-size:12px}
 </style>
 </head>
 <body>
 
+<!-- ══════════════ HEADER ══════════════ -->
 <header>
-    <h1>mobile dashboard</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">Cart</a>
-    </nav>
+  <div class="logo" onclick="showPage('home')">SK<span>.</span>shop</div>
+  <nav>
+    <button onclick="showPage('home')" id="nav-home" class="active">Home</button>
+    <button onclick="showPage('products')" id="nav-products">Products</button>
+    <button onclick="showPage('wishlist')" id="nav-wishlist">Wishlist</button>
+    <button onclick="showPage('account')" id="nav-account">Account</button>
+    <button onclick="showPage('contact')" id="nav-contact">Contact</button>
+  </nav>
+  <div class="header-right">
+    <div class="search-wrap">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="searchInput" placeholder="Search..." oninput="handleSearch()">
+    </div>
+    <button class="icon-btn" onclick="showPage('wishlist')" title="Wishlist">&#9829;<span class="badge-dot" id="wishDot" style="display:none"></span></button>
+    <button class="icon-btn" onclick="openCart()" title="Cart">&#128722;<span class="badge-dot" id="cartDot" style="display:none"></span></button>
+  </div>
 </header>
 
-<div class="container">
-    <h2>Our Products</h2>
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div class="page active" id="page-home">
 
-    <div class="products">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="T-Shirt">
-            <div class="card-content">
-                <h3>Casual T-Shirt</h3>
-                <p class="price">$19.99</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Camera">
-            <div class="card-content">
-                <h3>Camera</h3>
-                <p class="price">$299.99</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552" alt="Shoes">
-            <div class="card-content">
-                <h3>Candid Photos</h3>
-                <p class="price">$59.99</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" alt="Watch">
-            <div class="card-content">
-                <h3>Running Shoes</h3>
-                <p class="price">$89.99</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
+  <div class="hero">
+    <div>
+      <span class="hero-tag">✦ New Season Arrivals</span>
+      <h1>Style That <span>Speaks</span> For You</h1>
+      <p>Discover curated collections of clothing, electronics, footwear and accessories — crafted for everyday life.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('products')">Shop Now →</button>
+        <button class="btn-outline" onclick="showPage('products')">Browse Collections</button>
+      </div>
     </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&q=80" alt="Fashion">
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">12k+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Products</div></div>
+    <div class="stat"><div class="stat-num">48h</div><div class="stat-label">Fast Delivery</div></div>
+    <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Average Rating</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div><h2>Shop by Category</h2><p style="margin-top:4px;color:var(--muted);font-size:14px">Find exactly what you're looking for</p></div>
+      <button class="see-all" onclick="showPage('products')">See All Products</button>
+    </div>
+    <div class="cats-grid">
+      <div class="cat-card" onclick="filterAndGo('clothing')">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80" alt="Clothing">
+        <div class="cat-overlay"><span class="cat-name">Clothing</span></div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('electronics')">
+        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&q=80" alt="Electronics">
+        <div class="cat-overlay"><span class="cat-name">Electronics</span></div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('footwear')">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Footwear">
+        <div class="cat-overlay"><span class="cat-name">Footwear</span></div>
+      </div>
+      <div class="cat-card" onclick="filterAndGo('accessories')">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="Accessories">
+        <div class="cat-overlay"><span class="cat-name">Accessories</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-head">
+      <div><h2>Featured Products</h2></div>
+      <button class="see-all" onclick="showPage('products')">View All</button>
+    </div>
+    <div class="feat-grid" id="featGrid"></div>
+  </div>
+
+  <div class="promo-strip">
+    <div>
+      <h2>Summer Sale — Up to 40% Off</h2>
+      <p style="color:rgba(255,255,255,0.55);margin-bottom:24px">Limited time deals on top picks. Don't miss out on the season's best.</p>
+      <button class="btn-primary" onclick="filterAndGo('sale')">Shop the Sale</button>
+    </div>
+    <div class="promo-img">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&q=80" alt="Sale">
+    </div>
+  </div>
+
+  <div class="newsletter">
+    <h2>Stay in the Loop</h2>
+    <p>Get new arrivals, exclusive offers, and style tips delivered to your inbox.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Enter your email address" id="nlEmail">
+      <button onclick="subscribeNL()">Subscribe</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">SK<span style="color:var(--accent)">.</span>shop</span>
+        <p>Curated fashion and lifestyle products for people who value quality and style.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><button onclick="filterAndGo('clothing')">Clothing</button></li>
+          <li><button onclick="filterAndGo('electronics')">Electronics</button></li>
+          <li><button onclick="filterAndGo('footwear')">Footwear</button></li>
+          <li><button onclick="filterAndGo('accessories')">Accessories</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><button onclick="showPage('contact')">About Us</button></li>
+          <li><button onclick="showPage('contact')">Contact</button></li>
+          <li><button>Blog</button></li>
+          <li><button>Careers</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><button onclick="showPage('contact')">FAQ</button></li>
+          <li><button>Returns</button></li>
+          <li><button>Shipping</button></li>
+          <li><button onclick="showPage('account')">My Account</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SK.shop — All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
 </div>
 
-<footer>
-    <p>© 2026 SimpleShop. All rights reserved.</p>
-</footer>
+<!-- ══════════════ PRODUCTS PAGE ══════════════ -->
+<div class="page" id="page-products">
+  <div class="products-layout">
+    <h1 class="page-title">All Products</h1>
+    <p class="page-subtitle">Explore our full collection</p>
+    <div class="toolbar">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('clothing',this)">Clothing</button>
+      <button class="filter-btn" onclick="setFilter('electronics',this)">Electronics</button>
+      <button class="filter-btn" onclick="setFilter('footwear',this)">Footwear</button>
+      <button class="filter-btn" onclick="setFilter('accessories',this)">Accessories</button>
+      <select class="sort-select" id="sortSelect" onchange="renderFiltered()">
+        <option value="default">Sort: Featured</option>
+        <option value="low">Price: Low → High</option>
+        <option value="high">Price: High → Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+    <div class="result-count" id="resultCount"></div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</div>
 
+<!-- ══════════════ WISHLIST PAGE ══════════════ -->
+<div class="page" id="page-wishlist">
+  <div class="wishlist-layout">
+    <h1 class="page-title">My Wishlist</h1>
+    <p class="page-subtitle">Items you've saved for later</p>
+    <div class="products-grid" id="wishGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════════ ACCOUNT PAGE ══════════════ -->
+<div class="page" id="page-account">
+  <div style="padding:40px">
+    <h1 class="page-title">My Account</h1>
+    <p class="page-subtitle" style="margin-bottom:28px">Manage your profile, orders and addresses</p>
+    <div class="account-grid">
+      <div class="account-sidebar">
+        <div class="user-avatar">SK</div>
+        <div class="user-name">Sam Kumar</div>
+        <div class="user-email">sam.kumar@email.com</div>
+        <ul class="acc-nav">
+          <li><button class="active" onclick="showAccTab('profile',this)">👤 Profile</button></li>
+          <li><button onclick="showAccTab('orders',this)">📦 Orders</button></li>
+          <li><button onclick="showAccTab('addresses',this)">📍 Addresses</button></li>
+          <li><button onclick="showAccTab('security',this)">🔒 Security</button></li>
+        </ul>
+      </div>
+      <div class="acc-panel">
+
+        <!-- Profile Tab -->
+        <div id="acc-profile">
+          <h3>Personal Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" value="Sam"></div>
+            <div class="form-group"><label>Last Name</label><input type="text" value="Kumar"></div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input type="email" value="sam.kumar@email.com"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" value="+91 98765 43210"></div>
+          <div class="form-group"><label>Date of Birth</label><input type="date" value="1993-07-15"></div>
+          <div class="form-group"><label>Gender</label>
+            <select><option>Male</option><option>Female</option><option>Prefer not to say</option></select>
+          </div>
+          <button class="save-btn" onclick="showToast('Profile updated successfully')">Save Changes</button>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="acc-orders" style="display:none">
+          <h3>Order History</h3>
+          <div class="acc-sub-tabs">
+            <button class="sub-tab active">All Orders</button>
+            <button class="sub-tab">Pending</button>
+            <button class="sub-tab">Delivered</button>
+          </div>
+          <div class="order-item">
+            <div class="order-head">
+              <span class="order-id">Order #SK-2024-0891</span>
+              <span class="order-status status-delivered">Delivered</span>
+            </div>
+            <div class="order-items-list">
+              <img class="order-thumb" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=100&q=80" alt="">
+              <img class="order-thumb" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=100&q=80" alt="">
+            </div>
+            <div class="order-footer">
+              <span>Apr 12, 2026 · 2 items</span>
+              <span class="order-total">$109.98</span>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-head">
+              <span class="order-id">Order #SK-2024-0847</span>
+              <span class="order-status status-shipped">Shipped</span>
+            </div>
+            <div class="order-items-list">
+              <img class="order-thumb" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=100&q=80" alt="">
+            </div>
+            <div class="order-footer">
+              <span>May 1, 2026 · 1 item</span>
+              <span class="order-total">$299.99</span>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-head">
+              <span class="order-id">Order #SK-2024-0803</span>
+              <span class="order-status status-processing">Processing</span>
+            </div>
+            <div class="order-items-list">
+              <img class="order-thumb" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80" alt="">
+              <img class="order-thumb" src="https://images.unsplash.com/photo-1584589167171-541ce45f1eea?w=100&q=80" alt="">
+            </div>
+            <div class="order-footer">
+              <span>May 4, 2026 · 2 items</span>
+              <span class="order-total">$184.98</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Addresses Tab -->
+        <div id="acc-addresses" style="display:none">
+          <h3>Saved Addresses</h3>
+          <div class="addr-card default-addr">
+            <span class="addr-default-badge">Default</span>
+            <div class="addr-name">Sam Kumar</div>
+            <div class="addr-text">42, Anna Nagar East<br>Chennai, Tamil Nadu 600102<br>India<br>+91 98765 43210</div>
+            <div class="addr-actions">
+              <button class="link-btn">Edit</button>
+              <button class="link-btn" style="color:var(--muted)">Remove</button>
+            </div>
+          </div>
+          <div class="addr-card">
+            <div class="addr-name">Office</div>
+            <div class="addr-text">Level 5, Prestige Tower<br>MG Road, Bangalore 560001<br>India<br>+91 98000 11223</div>
+            <div class="addr-actions">
+              <button class="link-btn">Edit</button>
+              <button class="link-btn">Set as Default</button>
+              <button class="link-btn" style="color:var(--muted)">Remove</button>
+            </div>
+          </div>
+          <button class="save-btn" style="margin-top:8px">+ Add New Address</button>
+        </div>
+
+        <!-- Security Tab -->
+        <div id="acc-security" style="display:none">
+          <h3>Security Settings</h3>
+          <div class="form-group"><label>Current Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label>New Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label>Confirm New Password</label><input type="password" placeholder="••••••••"></div>
+          <button class="save-btn" onclick="showToast('Password updated')">Update Password</button>
+          <div style="margin-top:28px;padding-top:20px;border-top:0.5px solid var(--border)">
+            <h4 style="font-family:'Syne',sans-serif;margin-bottom:12px">Two-Factor Authentication</h4>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:14px">Add an extra layer of security to your account.</p>
+            <button class="save-btn" style="background:var(--success)">Enable 2FA</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTACT PAGE ══════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-layout">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>Let's Talk</h2>
+        <p>Got a question, feedback, or need help with an order? We're here to help — reach out any time.</p>
+        <div class="contact-detail">
+          <div class="detail-icon">📧</div>
+          <div><div class="detail-label">Email</div><div class="detail-val">hello@sk.shop</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">📞</div>
+          <div><div class="detail-label">Phone</div><div class="detail-val">+91 98765 00000</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">📍</div>
+          <div><div class="detail-label">Address</div><div class="detail-val">42 Anna Nagar, Chennai, TN 600102</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">🕐</div>
+          <div><div class="detail-label">Hours</div><div class="detail-val">Mon–Sat, 9am – 7pm IST</div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Sam"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Kumar"></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="sam@email.com"></div>
+        <div class="form-group"><label>Subject</label>
+          <select>
+            <option>Order Inquiry</option>
+            <option>Product Question</option>
+            <option>Returns & Refunds</option>
+            <option>Feedback</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea rows="5" placeholder="Tell us how we can help..."></textarea></div>
+        <button class="form-submit" onclick="submitContact()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section" style="padding:48px 40px">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does delivery take? <span>+</span></button>
+      <div class="faq-a">Standard delivery takes 3–5 business days. Express delivery (1–2 days) is available at checkout for an additional fee. Free delivery on orders above ₹999.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is your return policy? <span>+</span></button>
+      <div class="faq-a">We offer hassle-free returns within 30 days of purchase. Items must be in original condition with tags intact. Initiate a return from your account page.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Are the products authentic? <span>+</span></button>
+      <div class="faq-a">Yes, 100%. We source directly from verified brands and authorized distributors. Every product comes with authenticity guarantee and manufacturer warranty.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How do I track my order? <span>+</span></button>
+      <div class="faq-a">Once your order is shipped, you'll receive a tracking number via email and SMS. You can also track your order in real-time under My Account → Orders.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do you ship internationally? <span>+</span></button>
+      <div class="faq-a">Currently we ship across India. International shipping to select countries is coming soon. Subscribe to our newsletter to be notified when it launches.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CART DRAWER ══════════════ -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h2>Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">&#10005;</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div id="cartFoot"></div>
+</div>
+
+<!-- ══════════════ TOAST ══════════════ -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✓</div>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+// ── DATA ──
+const products=[
+  {id:1,name:"Casual T-Shirt",cat:"clothing",price:19.99,oldPrice:null,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400&q=80",rating:4.2,reviews:128,badge:"sale"},
+  {id:2,name:"Pro Camera",cat:"electronics",price:299.99,oldPrice:399,img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&q=80",rating:4.8,reviews:64,badge:"new"},
+  {id:3,name:"Linen Blazer",cat:"clothing",price:79.99,oldPrice:110,img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80",rating:4.5,reviews:89,badge:"sale"},
+  {id:4,name:"Running Shoes",cat:"footwear",price:89.99,oldPrice:null,img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80",rating:4.6,reviews:212,badge:"new"},
+  {id:5,name:"Leather Watch",cat:"accessories",price:149.99,oldPrice:200,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80",rating:4.4,reviews:77,badge:"sale"},
+  {id:6,name:"Wireless Headphones",cat:"electronics",price:129.99,oldPrice:null,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80",rating:4.7,reviews:156,badge:"new"},
+  {id:7,name:"Canvas Sneakers",cat:"footwear",price:59.99,oldPrice:75,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80",rating:4.1,reviews:93,badge:null},
+  {id:8,name:"Silk Scarf",cat:"accessories",price:34.99,oldPrice:null,img:"https://images.unsplash.com/photo-1584589167171-541ce45f1eea?w=400&q=80",rating:4.3,reviews:41,badge:null},
+  {id:9,name:"Polo Shirt",cat:"clothing",price:29.99,oldPrice:40,img:"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&q=80",rating:4.0,reviews:55,badge:"sale"},
+  {id:10,name:"Smart Speaker",cat:"electronics",price:79.99,oldPrice:null,img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",rating:4.5,reviews:110,badge:"new"},
+  {id:11,name:"Loafers",cat:"footwear",price:69.99,oldPrice:90,img:"https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&q=80",rating:4.2,reviews:38,badge:"sale"},
+  {id:12,name:"Sunglasses",cat:"accessories",price:44.99,oldPrice:null,img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80",rating:4.6,reviews:88,badge:null},
+];
+
+let cart={}, wishlist=new Set(), activeFilter='all';
+
+// ── STARS ──
+function stars(r){return '★'.repeat(Math.floor(r))+'☆'.repeat(5-Math.floor(r));}
+
+// ── CARD HTML ──
+function cardHTML(p){
+  return `<div class="card">
+    ${p.badge?`<span class="card-badge ${p.badge}">${p.badge.toUpperCase()}</span>`:''}
+    <button class="wish-btn ${wishlist.has(p.id)?'loved':''}" onclick="toggleWish(${p.id},this)">♥</button>
+    <img src="${p.img}" alt="${p.name}" loading="lazy">
+    <div class="card-body">
+      <div class="card-cat">${p.cat}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="stars">${stars(p.rating)} <span style="color:var(--muted);font-size:12px">(${p.reviews})</span></div>
+      <div class="card-footer">
+        <div>
+          <span class="price">$${p.price.toFixed(2)}</span>
+          ${p.oldPrice?`<span class="old-price">$${p.oldPrice}</span>`:''}
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id})">+ Add</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── PAGE NAV ──
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const nb=document.getElementById('nav-'+name);
+  if(nb) nb.classList.add('active');
+  if(name==='products') renderFiltered();
+  if(name==='wishlist') renderWishlist();
+  window.scrollTo(0,0);
+}
+
+function filterAndGo(cat){
+  activeFilter=cat==='sale'?'all':cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  showPage('products');
+}
+
+// ── SEARCH ──
+function handleSearch(){
+  if(document.getElementById('page-products').classList.contains('active')) renderFiltered();
+}
+
+// ── PRODUCTS ──
+function setFilter(cat,btn){
+  activeFilter=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFiltered();
+}
+
+function renderFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const sort=document.getElementById('sortSelect').value;
+  let list=products.filter(p=>(activeFilter==='all'||p.cat===activeFilter)&&(p.name.toLowerCase().includes(q)||p.cat.includes(q)));
+  if(sort==='low') list.sort((a,b)=>a.price-b.price);
+  else if(sort==='high') list.sort((a,b)=>b.price-a.price);
+  else if(sort==='rating') list.sort((a,b)=>b.rating-a.rating);
+  document.getElementById('resultCount').textContent=`Showing ${list.length} product${list.length!==1?'s':''}`;
+  const grid=document.getElementById('productsGrid');
+  grid.innerHTML=list.length?list.map(cardHTML).join('')
+    :`<div class="no-results"><div style="font-size:48px">🔍</div><p style="margin-top:12px">No products found for "${q}"</p></div>`;
+}
+
+// ── WISHLIST ──
+function toggleWish(id,btn){
+  if(wishlist.has(id)){wishlist.delete(id);btn.classList.remove('loved');showToast('Removed from wishlist');}
+  else{wishlist.add(id);btn.classList.add('loved');showToast('Added to wishlist ♥');}
+  document.getElementById('wishDot').style.display=wishlist.size?'block':'none';
+  if(document.getElementById('page-wishlist').classList.contains('active')) renderWishlist();
+}
+
+function renderWishlist(){
+  const grid=document.getElementById('wishGrid');
+  const list=products.filter(p=>wishlist.has(p.id));
+  grid.innerHTML=list.length?list.map(cardHTML).join('')
+    :`<div class="wishlist-empty" style="grid-column:1/-1"><div class="big-icon">♡</div><p style="font-size:16px;margin-bottom:8px;font-family:'Syne',sans-serif;font-weight:600">Your wishlist is empty</p><p style="font-size:14px">Browse products and tap the heart to save items.</p><button class="btn-primary" onclick="showPage('products')" style="margin-top:20px">Browse Products</button></div>`;
+}
+
+// ── CART ──
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  if(!cart[id]) cart[id]={...p,qty:0};
+  cart[id].qty++;
+  updateDots();
+  showToast(p.name+' added to cart');
+  renderCartDrawer();
+}
+
+function changeQty(id,d){
+  if(!cart[id]) return;
+  cart[id].qty+=d;
+  if(cart[id].qty<=0) delete cart[id];
+  updateDots();
+  renderCartDrawer();
+}
+
+function removeItem(id){delete cart[id];updateDots();renderCartDrawer();}
+
+function updateDots(){
+  const total=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartDot').style.display=total?'block':'none';
+}
+
+function renderCartDrawer(){
+  const items=Object.values(cart);
+  const body=document.getElementById('cartBody');
+  const foot=document.getElementById('cartFoot');
+  if(!items.length){
+    body.innerHTML='<div class="empty-cart"><div class="big">🛒</div><p>Your cart is empty</p><button class="btn-primary" onclick="closeCart();showPage(\'products\')" style="margin-top:16px">Start Shopping</button></div>';
+    foot.innerHTML='';return;
+  }
+  body.innerHTML=items.map(i=>`
+    <div class="cart-item">
+      <img src="${i.img}" alt="${i.name}">
+      <div class="ci-info">
+        <div class="ci-name">${i.name}</div>
+        <div class="ci-cat">${i.cat}</div>
+        <div class="ci-price">$${(i.price*i.qty).toFixed(2)}</div>
+        <div class="ci-qty">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+          <span class="qty-num">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="ci-del" onclick="removeItem(${i.id})">🗑</button>
+    </div>`).join('');
+  const sub=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const ship=sub>=99?0:5.99;
+  foot.innerHTML=`<div class="drawer-footer">
+    <div class="totals">
+      <div class="tot-row"><span>Subtotal</span><span>$${sub.toFixed(2)}</span></div>
+      <div class="tot-row"><span>Shipping</span><span>${ship===0?'<span style="color:var(--success)">Free</span>':'$'+ship.toFixed(2)}</span></div>
+      <div class="tot-row total"><span>Total</span><strong>$${(sub+ship).toFixed(2)}</strong></div>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Checkout →</button>
+    ${ship>0?`<p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px">Add $${(99-sub).toFixed(2)} more for free shipping</p>`:''}
+  </div>`;
+}
+
+function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');renderCartDrawer();}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+
+function checkout(){
+  cart={};updateDots();renderCartDrawer();closeCart();
+  showToast('🎉 Order placed! Thank you, Sam!');
+}
+
+// ── ACCOUNT TABS ──
+function showAccTab(tab,btn){
+  ['profile','orders','addresses','security'].forEach(t=>{
+    document.getElementById('acc-'+t).style.display=t===tab?'block':'none';
+  });
+  document.querySelectorAll('.acc-nav button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── CONTACT ──
+function submitContact(){showToast('Message sent! We\'ll reply within 24 hours.');}
+function subscribeNL(){const e=document.getElementById('nlEmail');if(e.value){showToast('Subscribed! Welcome to SK.shop 🎉');e.value='';}}
+
+// ── FAQ ──
+function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── INIT ──
+document.getElementById('featGrid').innerHTML=products.slice(0,4).map(cardHTML).join('');
+</script>
 </body>
 </html>
